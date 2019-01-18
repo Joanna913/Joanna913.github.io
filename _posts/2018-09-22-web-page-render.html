@@ -1,0 +1,493 @@
+---
+layout: default
+---
+
+
+<style>
+    * {
+      -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+    }
+
+    html {
+      -webkit-text-size-adjust: none;
+    }
+
+    body {
+      font-family: -apple-system, Helvetica, Arial, sans-serif;
+      margin: 0;
+      padding: 20px;
+      color: #333;
+      word-wrap: break-word;
+    }
+
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
+      line-height: 1.1;
+    }
+
+    img {
+      max-width: 100% !important;
+      height: auto;
+    }
+
+    blockquote {
+      margin: 0;
+      padding: 0 15px;
+      color: #777;
+      border-left: 4px solid #ddd;
+    }
+
+    hr {
+      background-color: #ddd;
+      border: 0;
+      height: 1px;
+      margin: 15px 0;
+    }
+
+    code {
+      font-family: Menlo, Consolas, 'Ubuntu Mono', Monaco, 'source-code-pro', monospace;
+      line-height: 1.4;
+      margin: 0;
+      padding: 0.2em 0;
+      font-size: 90%;
+      background-color: rgba(0, 0, 0, 0.04);
+      border-radius: 3px;
+    }
+
+    pre>code {
+      margin: 0;
+      padding: 0;
+      font-size: 100%;
+      word-break: normal;
+      background: transparent;
+      border: 0;
+    }
+
+    ol {
+      list-style-type: decimal;
+    }
+
+    ol ol,
+    ul ol {
+      list-style-type: lower-latin;
+    }
+
+    ol ol ol,
+    ul ol ol,
+    ul ul ol,
+    ol ul ol {
+      list-style-type: lower-roman;
+    }
+
+    table {
+      border-spacing: 0;
+      border-collapse: collapse;
+      margin-top: 0;
+      margin-bottom: 16px;
+    }
+
+    table th {
+      font-weight: bold;
+    }
+
+    table th,
+    table td {
+      padding: 6px 13px;
+      border: 1px solid #ddd;
+    }
+
+    table tr {
+      border-top: 1px solid #ccc;
+    }
+
+    table tr:nth-child(even) {
+      background-color: #f8f8f8;
+    }
+
+    input[type="checkbox"] {
+      cursor: default;
+      margin-right: 0.5em;
+      font-size: 13px;
+    }
+
+    .task-list-item {
+      list-style-type: none;
+    }
+
+    .task-list-item+.task-list-item {
+      margin-top: 3px;
+    }
+
+    .task-list-item input {
+      float: left;
+      margin: 0.3em 1em 0.25em -1.6em;
+      vertical-align: middle;
+    }
+
+    #tag-field {
+      margin: 8px 2px 10px;
+    }
+
+    #tag-field .tag {
+      display: inline-block;
+      background: #cadff3;
+      border-radius: 4px;
+      padding: 1px 8px;
+      color: black;
+      font-size: 12px;
+      margin-right: 10px;
+      line-height: 1.4;
+    }
+
+    .ace_static_highlight {
+      white-space: pre-wrap;
+    }
+
+    .ace_static_highlight .ace_gutter {
+      width: 2em;
+      text-align: right;
+      padding: 0 3px 0 0;
+      margin-right: 3px;
+    }
+
+    .ace_static_highlight.ace_show_gutter>.ace_line {
+      padding-left: 2.6em;
+    }
+
+    .ace_static_highlight .ace_line {
+      position: relative;
+    }
+
+    .ace_static_highlight .ace_gutter-cell {
+      -moz-user-select: -moz-none;
+      -khtml-user-select: none;
+      -webkit-user-select: none;
+      user-select: none;
+      top: 0;
+      bottom: 0;
+      left: 0;
+      position: absolute;
+    }
+
+    .ace_static_highlight .ace_gutter-cell:before {
+      content: counter(ace_line, decimal);
+      counter-increment: ace_line;
+    }
+
+    .ace_static_highlight {
+      counter-reset: ace_line;
+    }
+
+    .ace-crimson-editor .ace_gutter {
+      background: #ebebeb;
+      color: #333;
+      overflow: hidden;
+    }
+
+    .ace-crimson-editor .ace_gutter-layer {
+      width: 100%;
+      text-align: right;
+    }
+
+    .ace-crimson-editor .ace_print-margin {
+      width: 1px;
+      background: #e8e8e8;
+    }
+
+    .ace-crimson-editor {
+      background-color: #FFFFFF;
+      color: rgb(64, 64, 64);
+    }
+
+    .ace-crimson-editor .ace_cursor {
+      color: black;
+    }
+
+    .ace-crimson-editor .ace_invisible {
+      color: rgb(191, 191, 191);
+    }
+
+    .ace-crimson-editor .ace_identifier {
+      color: black;
+    }
+
+    .ace-crimson-editor .ace_keyword {
+      color: blue;
+    }
+
+    .ace-crimson-editor .ace_constant.ace_buildin {
+      color: rgb(88, 72, 246);
+    }
+
+    .ace-crimson-editor .ace_constant.ace_language {
+      color: rgb(255, 156, 0);
+    }
+
+    .ace-crimson-editor .ace_constant.ace_library {
+      color: rgb(6, 150, 14);
+    }
+
+    .ace-crimson-editor .ace_invalid {
+      text-decoration: line-through;
+      color: rgb(224, 0, 0);
+    }
+
+    .ace-crimson-editor .ace_fold {}
+
+    .ace-crimson-editor .ace_support.ace_function {
+      color: rgb(192, 0, 0);
+    }
+
+    .ace-crimson-editor .ace_support.ace_constant {
+      color: rgb(6, 150, 14);
+    }
+
+    .ace-crimson-editor .ace_support.ace_type,
+    .ace-crimson-editor .ace_support.ace_class {
+      color: rgb(109, 121, 222);
+    }
+
+    .ace-crimson-editor .ace_keyword.ace_operator {
+      color: rgb(49, 132, 149);
+    }
+
+    .ace-crimson-editor .ace_string {
+      color: rgb(128, 0, 128);
+    }
+
+    .ace-crimson-editor .ace_comment {
+      color: rgb(76, 136, 107);
+    }
+
+    .ace-crimson-editor .ace_comment.ace_doc {
+      color: rgb(0, 102, 255);
+    }
+
+    .ace-crimson-editor .ace_comment.ace_doc.ace_tag {
+      color: rgb(128, 159, 191);
+    }
+
+    .ace-crimson-editor .ace_constant.ace_numeric {
+      color: rgb(0, 0, 64);
+    }
+
+    .ace-crimson-editor .ace_variable {
+      color: rgb(0, 64, 128);
+    }
+
+    .ace-crimson-editor .ace_xml-pe {
+      color: rgb(104, 104, 91);
+    }
+
+    .ace-crimson-editor .ace_marker-layer .ace_selection {
+      background: rgb(181, 213, 255);
+    }
+
+    .ace-crimson-editor .ace_marker-layer .ace_step {
+      background: rgb(252, 255, 0);
+    }
+
+    .ace-crimson-editor .ace_marker-layer .ace_stack {
+      background: rgb(164, 229, 101);
+    }
+
+    .ace-crimson-editor .ace_marker-layer .ace_bracket {
+      margin: -1px 0 0 -1px;
+      border: 1px solid rgb(192, 192, 192);
+    }
+
+    .ace-crimson-editor .ace_marker-layer .ace_active-line {
+      background: rgb(232, 242, 254);
+    }
+
+    .ace-crimson-editor .ace_gutter-active-line {
+      background-color: #dcdcdc;
+    }
+
+    .ace-crimson-editor .ace_meta.ace_tag {
+      color: rgb(28, 2, 255);
+    }
+
+    .ace-crimson-editor .ace_marker-layer .ace_selected-word {
+      background: rgb(250, 250, 255);
+      border: 1px solid rgb(200, 200, 250);
+    }
+
+    .ace-crimson-editor .ace_string.ace_regex {
+      color: rgb(192, 0, 192);
+    }
+
+    .ace-crimson-editor .ace_indent-guide {
+      background: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAACCAYAAACZgbYnAAAAE0lEQVQImWP4////f4bLly//BwAmVgd1/w11/gAAAABJRU5ErkJggg==") right repeat-y;
+    }
+
+    body {
+      margin: 0 auto;
+      max-width: 800px;
+      line-height: 1.4
+    }
+
+    #nav {
+      margin: 5px 0 10px;
+      font-size: 15px
+    }
+
+    #titlearea {
+      border-bottom: 1px solid #ccc;
+      font-size: 17px;
+      padding: 10px 0;
+    }
+
+    #contentarea {
+      font-size: 15px;
+      margin: 16px 0
+    }
+
+    .cell {
+      outline: 0;
+      min-height: 20px;
+      margin: 5px 0;
+      padding: 5px 0;
+    }
+
+    .code-cell {
+      font-family: Menlo, Consolas, 'Ubuntu Mono', Monaco, 'source-code-pro', monospace;
+      font-size: 12px;
+    }
+
+    .latex-cell {
+      white-space: pre-wrap;
+    }
+
+    .text-cell {
+      font-size: 15px;
+    }
+
+    .code-cell {
+      font-size: 12px;
+    }
+
+    .markdown-cell {
+      font-size: 15px;
+    }
+
+    .latex-cell {
+      font-size: 15px;
+    }
+  </style>
+  <div id="titlearea">
+    <h2>重排 & 重绘 & 重组</h2>
+  </div>
+  <div id="contentarea">
+    <div class="cell text-cell">
+      <h2 style="font-size: 10.5px;"><a href="https://www.youtube.com/watch?v=SmE4OwHztCc">https://www.youtube.com/watch?v=SmE4OwHztCc</a><br></h2>
+      <h2>浏览器渲染</h2>
+      <div><img src="https://ecmb.bdimg.com/adtest/84D9064716A899F0090A4D52C20C3A5E.jpg" width="1154" height="520"><br></div>
+      <ul>
+        <li>HTML解析</li>
+      </ul>
+      <div><img src="https://ecmb.bdimg.com/adtest/722DEF3DD05F9D9C1D82D4F3E8A6B239.jpg" width="1177" height="476"><br></div>
+      <ul>
+        <li>Css解析</li>
+      </ul>
+      <div><img src="https://ecmb.bdimg.com/adtest/6A681FB221D082820D59138247CF6FAB.jpg" width="1195" height="547"><br></div>
+      <ul>
+        <li>渲染树排版（layout）</li>
+        <ul>
+          <li>与Dom树区别1：是Dom树中的可见部分</li>
+          <li>根节点：视窗[0, 0] -&gt; [window.innerWidth, window.innerHeight]</li>
+        </ul>
+      </ul>
+      <div><img src="https://ecmb.bdimg.com/adtest/0953F98D1783254B825EF24B48C2B37B.jpg" width="1180" height="473"><br></div>
+      <div><img src="https://ecmb.bdimg.com/adtest/E61474E0E47AAC62E58EA7E60930FD78.jpg" width="1094" height="347"><br></div>
+      <div>
+        <div><img src="https://ecmb.bdimg.com/adtest/A22D51BF4288058BDE27D04E1A1628DA.jpg" width="955" height="425">&nbsp;<br></div>
+        <div><img src="https://ecmb.bdimg.com/adtest/6438F473F9A4901B4EB8264A19672E2E.jpg" width="1190" height="446"><br></div>
+      </div>
+      <div>
+        <div><img src="https://ecmb.bdimg.com/adtest/E0D585924EEB078668AD23F532A9DDDC.jpg" width="964" height="382"><br></div>
+        <div><img src="https://ecmb.bdimg.com/adtest/B1708A0D932E1A4B49B6C170247374EA.jpg" width="1181" height="549"><br></div>
+        <div><img src="https://ecmb.bdimg.com/adtest/3BD43D15AB383C0823461F257CADDFD5.jpg" width="1239" height="542"></div>
+      </div>
+      <ul>
+
+        <li>渲染树绘制（paint）</li>
+      </ul>
+      <div><img src="https://ecmb.bdimg.com/adtest/EB25B5D2B75D3B747CF5514DB24E61F6.jpg" width="842" height="430"><br></div>
+      <div><img src="https://ecmb.bdimg.com/adtest/CAE7D51B13E8953B400843DA5B8F28C9.jpg" width="1155" height="494">&nbsp;<img
+          src="https://ecmb.bdimg.com/adtest/B89B2CD7259552F07B2765206C61C109.jpg" width="1163" height="435"><img src="https://ecmb.bdimg.com/adtest/8F6E98575B85CEF45853DF27F767C86A.jpg"
+          width="1212" height="474"><br></div>
+      <div><span style="font-size: 21px;">重排(reflow || relayout) &nbsp;</span><br></div>
+      <ul>
+        <li>定义：部分/整个渲染树需要重新分析并且节点尺寸需要重新计算</li>
+      </ul>
+      <h2>重绘(repaint)</h2>
+      <ul>
+        <li>定义：节点的【几何属性】发生改变或样式发生改变</li>
+      </ul>
+      <h2>合成层(composite)</h2>
+      <ul>
+        <li>定义：对页面中 DOM 元素的绘制是在多个层上进行的。在每个层上完成绘制过程之后，浏览器会将所有层按照合理的顺序合并成一个图层，然后显示在屏幕上。</li>
+
+      </ul>
+      <div><img src="https://ecmb.bdimg.com/adtest/3013F262AE8486D48558609373AB4F83.png" width="720" height="283"><br></div>
+      <div>
+        <hr>
+      </div>
+      <h2>触发情况</h2>
+      <div>http://csstrigers.com</div>
+      <ul>
+        <li>css属性 &amp; dom修改</li>
+      </ul>
+      <pre><code>var bstyle = document.body.style; // cache
+bstyle.padding = "20px"; // 重排+重绘
+bstyle.border = "10px solid red"; // 另一次重排+重绘
+bstyle.color = "blue"; // 没有尺寸变化，只重绘
+bstyle.backgroundColor = "#fad"; // 重绘
+bstyle.fontSize = "2em"; // 重排+重绘
+// 新的DOM节点 - 重排+重绘
+document.body.appendChild(document.createTextNode('dude!'));
+
+</code></pre>
+      <ul>
+        <li><strong>访问样式信息</strong>会组织浏览器优化重排并立即刷新队列
+        </li>
+        <ul>
+          <li>offsetTop, offsetLeft, offsetWidth, offsetHeight</li>
+          <li>scrollTop/Left/Width/Height</li>
+          <li>clientTop/Left/Width/Height</li>
+          <li>getComputedStyle(), or currentStyle in IE</li>
+          <li>以上就是一个节点基本的可请求信息。无论何时发出请求，浏览器需要<strong>计算</strong>最新的值。为了实现这一目的，浏览器需要应用所有队列中的变更，刷新队列然后去实现重排。</li>
+        </ul>
+
+      </ul>
+      <div>
+        <hr>
+      </div>
+      <h2>最小化重排与重绘</h2>
+      <ul>
+        <li><a href="http://www.html5rocks.com/en/tutorials/speed/high-performance-animations/">http://www.html5rocks.com/en/tutorials/speed/high-performance-animations/</a></li>
+        <li><a href="http://www.html5rocks.com/zh/tutorials/speed/layers/">http://www.html5rocks.com/zh/tutorials/speed/layers/</a></li>
+      </ul>
+      <div><img src="https://ecmb.bdimg.com/adtest/DCCBF02EE8BDBDEB460204BCF77F5A2C.jpg" width="1120" height="399"><br></div>
+      <div>
+        <ul style="box-sizing: inherit; margin: 0px; padding-left: 40px; list-style-position: outside; list-style-image: initial; color: rgb(33, 33, 33); font-family: Roboto, sans-serif; font-size: 16px; font-variant-ligatures: normal; orphans: 2; widows: 2;">
+          <li style="box-sizing: inherit; margin: 8px 0px; padding: 0px;">坚持使用 transform 和 opacity 属性更改来实现动画。</li>
+          <li style="box-sizing: inherit; margin: 8px 0px; padding: 0px;">使用&nbsp;<code style="box-sizing: inherit; background-color: rgb(247, 247, 247); color: rgb(55, 71, 79); font-size: 14.4px; line-height: 1; font-family: 'Roboto Mono', monospace; padding: 1px 4px; word-break: break-word; background-position: initial initial; background-repeat: initial initial;">will-change</code>&nbsp;或&nbsp;<code
+              style="box-sizing: inherit; background-color: rgb(247, 247, 247); color: rgb(55, 71, 79); font-size: 14.4px; line-height: 1; font-family: 'Roboto Mono', monospace; padding: 1px 4px; word-break: break-word; background-position: initial initial; background-repeat: initial initial;">translateZ</code>&nbsp;提升移动的元素。</li>
+          <li style="box-sizing: inherit; margin: 8px 0px; padding: 0px;">避免过度使用提升规则；各层都需要内存和管理开销。</li>
+        </ul>
+        <div style="orphans: 2; widows: 2;">
+          <hr>
+        </div>
+      </div>
+      <div style="font-size: 20px;"><b>拓展阅读</b></div>
+      <div><a href="https://developers.google.com/web/fundamentals/performance/rendering/stick-to-compositor-only-properties-and-manage-layer-count?hl=zh-cn"
+          style="font-size: 13px;"><code style="font-size: 11.800000190734863px;">https://developers.google.com/web/fundamentals/performance/rendering/stick-to-compositor-only-properties-and-manage-layer-count?hl=zh-cn</code></a></div>
+      <div><img src="https://ecmb.bdimg.com/adtest/16D14730118F1C1EEEADE3A9F212B5A0.jpg" width="1173" height="602"><br></div>
+    </div>
+  </div>
